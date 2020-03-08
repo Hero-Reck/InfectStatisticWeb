@@ -10,7 +10,7 @@ import java.io.IOException;
 @WebServlet("/NationalData")
 public class NationalDataServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        String test = "....";
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
