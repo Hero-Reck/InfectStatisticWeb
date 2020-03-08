@@ -1,5 +1,7 @@
 package servlet;
 
+import dao.LogDao;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,11 +12,12 @@ import java.io.IOException;
 @WebServlet("/NationalData")
 public class NationalDataServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("Hello World");
-        String test = "....";
+
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        String path = getServletConfig().getServletContext().getRealPath("/");
+        LogDao dao = new LogDao(path+"log\\");
+        System.out.println(dao.getLogPath());
     }
 }
