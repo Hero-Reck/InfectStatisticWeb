@@ -1,7 +1,5 @@
 package util;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.Reader;
 
 public class MyUtil {
@@ -12,6 +10,15 @@ public class MyUtil {
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public static int parseData(String dataNumber)  {
+        try{
+            return Integer.parseInt(dataNumber.substring(0,dataNumber.length() - 1));
+        }catch (Exception e){
+            e.printStackTrace();
+            return 0;
         }
     }
 }
