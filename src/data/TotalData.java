@@ -87,24 +87,141 @@ public class TotalData {
                         datePartData.add(data[0],2, num);
                         cumList = cumData.get(data[0]);
                         cumList.set(2,cumList.get(2) + num);
-                        cumList.set(0,cumList.get(0) - num);
                         break;
                     case "治愈":
                         num = MyUtil.parseData(data[2]);
                         datePartData.add(data[0],3, num);
                         cumList = cumData.get(data[0]);
                         cumList.set(3,cumList.get(3) + num);
-                        cumList.set(0,cumList.get(0) - num);
                         break;
                 }
             }
-            datePartData.setCumData(cumData);
-            datePartData.count();
+            datePartData.setInitData(cumData);
+            datePartData.compute();
             statistics.put(date,datePartData);
         }
     }
 
     public Map<String,DatePartData> getStatistics() {
         return statistics;
+    }
+
+    public String getTotalDataJson(String date) {
+        DatePartData data = statistics.get(date);
+        List<Integer> increment = data.getNationalDataInc();
+        List<Integer> exist = data.getNationalDataExi();
+        StringBuilder jsonStr = new StringBuilder();
+        jsonStr.append("[");
+        jsonStr.append("{");
+        jsonStr.append("\"type\":").append("\"现存确诊\"").append(",");
+        jsonStr.append("\"num\":").append(exist.get(0)).append(",");
+        jsonStr.append("\"compare\":").append(increment.get(0) - increment.get(2) - increment.get(3));
+        jsonStr.append("}").append(",");
+        jsonStr.append("{");
+        jsonStr.append("\"type\":").append("\"累计确诊\"").append(",");
+        jsonStr.append("\"num\":").append(data.getNationalCumInfect()).append(",");
+        jsonStr.append("\"compare\":").append(increment.get(0));
+        jsonStr.append("}").append(",");
+        jsonStr.append("{");
+        jsonStr.append("\"type\":").append("\"现存疑似\"").append(",");
+        jsonStr.append("\"num\":").append(exist.get(1)).append(",");
+        jsonStr.append("\"compare\":").append(increment.get(1));
+        jsonStr.append("}").append(",");
+        jsonStr.append("{");
+        jsonStr.append("\"type\":").append("\"现存死亡\"").append(",");
+        jsonStr.append("\"num\":").append(exist.get(2)).append(",");
+        jsonStr.append("\"compare\":").append(increment.get(2));
+        jsonStr.append("}").append(",");
+        jsonStr.append("{");
+        jsonStr.append("\"type\":").append("\"现存治愈\"").append(",");
+        jsonStr.append("\"num\":").append(exist.get(3)).append(",");
+        jsonStr.append("\"compare\":").append(increment.get(3));
+        jsonStr.append("}");
+        jsonStr.append("]");
+        return jsonStr.toString();
+    }
+
+    public String getNationalCumJson(String date) {
+        StringBuilder jsonStr = new StringBuilder();
+        Map<String,Integer> cumData= statistics.get(date).getProvincesCumInfect();
+        jsonStr.append("[");
+        for (String province : cumData.keySet()) {
+            jsonStr.append("{");
+            jsonStr.append("\"name\":").append("\"").append(province).append("\"").append(",");
+            jsonStr.append("\"value\":").append(cumData.get(province));
+            jsonStr.append("},");
+        }
+        jsonStr.deleteCharAt(jsonStr.length() - 1);
+        jsonStr.append("]");
+        return jsonStr.toString();
+    }
+
+    public String getNationalExiJson(String date) {
+        StringBuilder jsonStr = new StringBuilder();
+        Map<String,List<Integer>> existData= statistics.get(date).getProvincesDataExi();
+        jsonStr.append("[");
+        for (String province : existData.keySet()) {
+            jsonStr.append("{");
+            jsonStr.append("\"name\":").append("\"").append(province).append("\"").append(",");
+            jsonStr.append("\"value\":").append(existData.get(province).get(0));
+            jsonStr.append("},");
+        }
+        jsonStr.deleteCharAt(jsonStr.length() - 1);
+        jsonStr.append("]");
+        return jsonStr.toString();
+    }
+
+    public String getNInfSusIncJson() {
+        StringBuilder jsonStr = new StringBuilder();
+        jsonStr.append("[");
+        for (String date : statistics.keySet()) {
+            List<Integer> incData = statistics.get(date).getNationalDataInc();
+            jsonStr.append("{");
+            jsonStr.append("\"xAxis\":").append("\"");
+            jsonStr.append(date.substring(date.indexOf("-") + 1).replace("-","/"));
+            jsonStr.append("\"").append(",");
+            jsonStr.append("\"新增确诊\":").append(incData.get(0)).append(",");
+            jsonStr.append("\"新增疑似\":").append(incData.get(1));
+            jsonStr.append("}").append(",");
+        }
+        jsonStr.deleteCharAt(jsonStr.length() - 1);
+        jsonStr.append("]");
+        return jsonStr.toString();
+    }
+
+    public String getNInfSusExiJson() {
+        StringBuilder jsonStr = new StringBuilder();
+        jsonStr.append("[");
+        for (String date : statistics.keySet()) {
+            List<Integer> exiData = statistics.get(date).getNationalDataExi();
+            jsonStr.append("{");
+            jsonStr.append("\"xAxis\":").append("\"");
+            jsonStr.append(date.substring(date.indexOf("-") + 1).replace("-","/"));
+            jsonStr.append("\"").append(",");
+            jsonStr.append("\"现存确诊\":").append(exiData.get(0)).append(",");
+            jsonStr.append("\"现存疑似\":").append(exiData.get(1));
+            jsonStr.append("}").append(",");
+        }
+        jsonStr.deleteCharAt(jsonStr.length() - 1);
+        jsonStr.append("]");
+        return jsonStr.toString();
+    }
+
+    public String getNDeadCureExiJson() {
+        StringBuilder jsonStr = new StringBuilder();
+        jsonStr.append("[");
+        for (String date : statistics.keySet()) {
+            List<Integer> deadCureData = statistics.get(date).getNationalDataExi();
+            jsonStr.append("{");
+            jsonStr.append("\"xAxis\":").append("\"");
+            jsonStr.append(date.substring(date.indexOf("-") + 1).replace("-","/"));
+            jsonStr.append("\"").append(",");
+            jsonStr.append("\"死亡\":").append(deadCureData.get(2)).append(",");
+            jsonStr.append("\"治愈\":").append(deadCureData.get(3));
+            jsonStr.append("}").append(",");
+        }
+        jsonStr.deleteCharAt(jsonStr.length() - 1);
+        jsonStr.append("]");
+        return jsonStr.toString();
     }
 }

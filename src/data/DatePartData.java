@@ -7,17 +7,20 @@ import java.util.Map;
 
 public class DatePartData {
     private Map<String, List<Integer>> provincesDataInc;
-    private Map<String, List<Integer>> provincesDataCum;
+    private Map<String, List<Integer>> provincesDataExi;
     private List<Integer> nationalDataInc;
-    private List<Integer> nationalDataCum;
+    private List<Integer> nationalDataExi;
+    private int nationalCumInfect;
+    private Map<String,Integer> provincesCumInfect;
 
     public DatePartData() {
         provincesDataInc = new HashMap<>();
+        provincesCumInfect = new HashMap<>();
         nationalDataInc = new ArrayList<>();
-        nationalDataCum = new ArrayList<>();
+        nationalDataExi = new ArrayList<>();
         for(int i=0;i< 4;i++) {
             nationalDataInc.add(0);
-            nationalDataCum.add(0);
+            nationalDataExi.add(0);
         }
         List<Integer> originData = new ArrayList<>();
         originData.add(0); //感染人数
@@ -61,20 +64,27 @@ public class DatePartData {
         provincesDataInc.put("浙江",new ArrayList<>(originData));
     }
 
-    public void setCumData(Map<String,List<Integer>> provincesDataCum) {
-        this.provincesDataCum = provincesDataCum;
+    public void setInitData(Map<String,List<Integer>> lastDayCumData) {
+        this.provincesDataExi = new HashMap<>();
+        for (String province : lastDayCumData.keySet()) {
+            provincesDataExi.put(province,new ArrayList<>(lastDayCumData.get(province)));
+        }
     }
 
     public void add(String province,int type,int num) {
             List<Integer> list = provincesDataInc.get(province);
-            list.set(type,num);
+            list.set(type,list.get(type) + num);
     }
 
-    public void count() {
-        for(String province : provincesDataCum.keySet()) {
+    public void compute() {
+        for(String province : provincesDataExi.keySet()) {
+            List<Integer> list = provincesDataExi.get(province);
+            provincesCumInfect.put(province,list.get(0));
+            nationalCumInfect += list.get(0);
+            list.set(0,list.get(0) - list.get(2) - list.get(3));  //现存感染等于累计感染减去死亡和治愈
             for(int i = 0;i < 4;i++) {
                 nationalDataInc.set(i,nationalDataInc.get(i) + provincesDataInc.get(province).get(i));
-                nationalDataCum.set(i,nationalDataCum.get(i) + provincesDataCum.get(province).get(i));
+                nationalDataExi.set(i,nationalDataExi.get(i) + provincesDataExi.get(province).get(i));
             }
         }
     }
@@ -83,7 +93,23 @@ public class DatePartData {
         return nationalDataInc;
     }
 
-    public List<Integer> getNationalDataCum() {
-        return nationalDataCum;
+    public List<Integer> getNationalDataExi() {
+        return nationalDataExi;
+    }
+
+    public Map<String,List<Integer>> getProvincesDataExi() {
+        return provincesDataExi;
+    }
+
+    public Map<String, List<Integer>> getProvincesDataInc() {
+        return provincesDataInc;
+    }
+
+    public int getNationalCumInfect() {
+        return nationalCumInfect;
+    }
+
+    public Map<String,Integer> getProvincesCumInfect() {
+        return provincesCumInfect;
     }
 }
