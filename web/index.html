@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
     <title>疫情可视化</title>
-    <link href="css/style.css" type="text/css" rel="stylesheet">
+    <link href="css/style.css" type="text/css" rel="stylesheet" charset="UTF-8">
     <link href="http://lib.sinaapp.com/js/bootstrap/v3.0.0/css/bootstrap.min.css" type="text/css" rel="stylesheet">
     <script src="https://cdn.bootcss.com/jquery/3.2.0/jquery.js"></script>
     <script src="https://lib.baomitu.com/echarts/4.6.0/echarts.min.js"></script>
@@ -12,9 +12,62 @@
 </head>
 <body>
 <div id="main">
-    <div id="navigator"></div>
-    <div id="container"></div>
-    <div id="footer"></div>
+    <div id="navigator">
+        <div id="navigatorContent">
+            <table>
+                <td><a href="#container">实时疫情</a></td>
+                <td><a href="#chinaStatistics">全国数据</a></td>
+                <td><a href="#rumors">辟谣与防护</a></td>
+            </table>
+        </div>
+    </div>
+    <div id="container" name="container">
+        <div id="statistics">
+            <p id="fake">截止至xxxx年xx月xx日 xx:xx 全国统计数据</p>
+            <table>
+                <tr>
+                    <td id="td1">
+                        <p>现有确诊</p><p class="pp1" id="p1">45631</p>较昨日<p class="pp1"> -2129</p>
+                    </td>
+                    <td id="td2">
+                        <p>现存疑似</p><p class="pp2" id="p2">2491</p>较昨日<p class="pp2"> +439</p>
+                    </td>
+                    <td>
+                        <p>现有重症</p><p class="pp3" id="p3">1230</p>较昨日<p class="pp3"> -311</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td id="td3">
+                        <p>累计确诊</p><p class="pp4" id="p4">78160</p>较昨日<p class="pp4"> +698</p>
+                    </td>
+                    <td id="td4">
+                        <p>累计治愈</p><p class="pp5" id="p5">30028</p>较昨日<p class="pp5"> +29</p>
+                    </td>
+                    <td>
+                        <p>累计死亡</p><p class="pp6" id="p6">3665</p>较昨日<p class="pp6"> +52</p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="map">
+            疫情地图
+        </div>
+        <div id="graphics">
+            折线图
+        </div>
+        <div id="chinaStatistics" name="chinaStatistics">
+            全国数据
+        </div>
+        <div id="globalStatistics">
+            全球数据
+        </div>
+        <div id="rumors" name="rumors">
+            辟谣与防护
+        </div>
+    </div>
+    <div id="footer">
+
+    </div>
 </div>
 </body>
 </html>
