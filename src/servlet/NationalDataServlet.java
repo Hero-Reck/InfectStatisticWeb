@@ -2,6 +2,7 @@ package servlet;
 
 import dao.LogDao;
 import data.TotalData;
+import util.MyUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,29 +14,29 @@ import java.io.*;
 @WebServlet("/NationalData")
 public class NationalDataServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
+        request.setCharacterEncoding("utf-8");
+        response.setContentType("application/json;charset=utf-8");
+        response.setCharacterEncoding("utf-8");
+        PrintWriter writer = response.getWriter();
+        TotalData totalData;
+        String date = request.getParameter("date");
+        if (date == null) {
+            String path = getServletConfig().getServletContext().getRealPath("/") + "log";
+            LogDao dao = new LogDao(path);
+            totalData = new TotalData();
+            totalData.initData(dao);
+            request.getSession().setAttribute("totalData",totalData);
+            System.out.println(MyUtil.getNewestDate());
+            writer.write(totalData.getAllNationalJson(MyUtil.getNewestDate()));
+        } else {
+            totalData = (TotalData) request.getSession().getAttribute("totalData");
+            writer.write(totalData.getAllNationalJson(date));
+        }
+        writer.flush();
+        writer.close();
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setCharacterEncoding("utf-8");
-        OutputStream out = response.getOutputStream();
-        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out));
-        String path = getServletConfig().getServletContext().getRealPath("/");
-        LogDao dao = new LogDao(path+"log\\");
-        TotalData totalData = new TotalData();
-        totalData.initData(dao);
-        writer.write(totalData.getTotalDataJson("2020-02-02"));
-        writer.write("\n*************************\n");
-        writer.write(totalData.getNationalCumJson("2020-02-02"));
-        writer.write("\n*************************\n");
-        writer.write(totalData.getNationalExiJson("2020-02-02"));
-        writer.write("\n*************************\n");
-        writer.write(totalData.getNInfSusIncJson());
-        writer.write("\n*************************\n");
-        writer.write(totalData.getNInfSusExiJson());
-        writer.write("\n*************************\n");
-        writer.write(totalData.getNDeadCureExiJson());
-        writer.flush();
-        writer.close();
+
     }
 }
