@@ -106,7 +106,7 @@ public class TotalData {
         return statistics;
     }
 
-    public String getTotalDataJson(String date) {
+    private String getTotalDataJson(String date) {
         DatePartData data = statistics.get(date);
         List<Integer> increment = data.getNationalDataInc();
         List<Integer> exist = data.getNationalDataExi();
@@ -141,7 +141,7 @@ public class TotalData {
         return jsonStr.toString();
     }
 
-    public String getNationalCumJson(String date) {
+    private String getNationalCumJson(String date) {
         StringBuilder jsonStr = new StringBuilder();
         Map<String,Integer> cumData= statistics.get(date).getProvincesCumInfect();
         jsonStr.append("[");
@@ -156,7 +156,7 @@ public class TotalData {
         return jsonStr.toString();
     }
 
-    public String getNationalExiJson(String date) {
+    private String getNationalExiJson(String date) {
         StringBuilder jsonStr = new StringBuilder();
         Map<String,List<Integer>> existData= statistics.get(date).getProvincesDataExi();
         jsonStr.append("[");
@@ -171,7 +171,7 @@ public class TotalData {
         return jsonStr.toString();
     }
 
-    public String getNInfSusIncJson() {
+    private String getNInfSusIncJson() {
         StringBuilder jsonStr = new StringBuilder();
         jsonStr.append("[");
         for (String date : statistics.keySet()) {
@@ -189,7 +189,7 @@ public class TotalData {
         return jsonStr.toString();
     }
 
-    public String getNInfSusExiJson() {
+    private String getNInfSusExiJson() {
         StringBuilder jsonStr = new StringBuilder();
         jsonStr.append("[");
         for (String date : statistics.keySet()) {
@@ -207,7 +207,7 @@ public class TotalData {
         return jsonStr.toString();
     }
 
-    public String getNDeadCureExiJson() {
+    private String getNDeadCureExiJson() {
         StringBuilder jsonStr = new StringBuilder();
         jsonStr.append("[");
         for (String date : statistics.keySet()) {
@@ -225,7 +225,7 @@ public class TotalData {
         return jsonStr.toString();
     }
 
-    public String getTableDataJson(String date) {
+    private String getTableDataJson(String date) {
         StringBuilder jsonStr = new StringBuilder();
         jsonStr.append("[");
         DatePartData data = statistics.get(date);
@@ -236,8 +236,8 @@ public class TotalData {
             jsonStr.append("\"地区\":").append("\"").append(province).append("\"").append(",");
             jsonStr.append("\"现存确诊\":").append(exiData.get(province).get(0)).append(",");
             jsonStr.append("\"累计确诊\":").append(cumData.get(province)).append(",");
-            jsonStr.append("\"治愈\":").append(exiData.get(province).get(3)).append(",");
-            jsonStr.append("\"死亡\":").append(exiData.get(province).get(2));
+            jsonStr.append("\"死亡\":").append(exiData.get(province).get(2)).append(",");
+            jsonStr.append("\"治愈\":").append(exiData.get(province).get(3));
             jsonStr.append("}").append(",");
         }
         jsonStr.deleteCharAt(jsonStr.length() - 1);
@@ -245,7 +245,7 @@ public class TotalData {
         return jsonStr.toString();
     }
 
-    public String getNationalAllJson(String date) {
+    public String getAllNationalJson(String date) {
         StringBuilder jsonStr = new StringBuilder();
         jsonStr.append("[");
         jsonStr.append(getTotalDataJson(date)).append(",");
@@ -255,6 +255,98 @@ public class TotalData {
         jsonStr.append(getNInfSusExiJson()).append(",");
         jsonStr.append(getNDeadCureExiJson()).append(",");
         jsonStr.append(getTableDataJson(date));
+        jsonStr.append("]");
+        return jsonStr.toString();
+    }
+
+    private String getProvinceJson(String province,String date) {
+        StringBuilder jsonStr = new StringBuilder();
+        DatePartData data = statistics.get(date);
+        List<Integer> exiData = data.getProvincesDataExi().get(province);
+        List<Integer> incData = data.getProvincesDataInc().get(province);
+        int cumData = data.getProvincesCumInfect().get(province);
+        jsonStr.append("[").append("{");
+        jsonStr.append("\"type\":").append("\"现存确诊\"").append(",");
+        jsonStr.append("\"num\":").append(exiData.get(0)).append(",");
+        jsonStr.append("\"compare\":").append(incData.get(0) - incData.get(2) - incData.get(3));
+        jsonStr.append("}").append(",").append("{");
+        jsonStr.append("\"type\":").append("\"累计确诊\"").append(",");
+        jsonStr.append("\"num\":").append(cumData).append(",");
+        jsonStr.append("\"compare\":").append(incData.get(0));
+        jsonStr.append("}").append(",").append("{");
+        jsonStr.append("\"type\":").append("\"死亡\"").append(",");
+        jsonStr.append("\"num\":").append(exiData.get(2)).append(",");
+        jsonStr.append("\"compare\":").append(incData.get(2));
+        jsonStr.append("}").append(",").append("{");
+        jsonStr.append("\"type\":").append("\"治愈\"").append(",");
+        jsonStr.append("\"num\":").append(exiData.get(3)).append(",");
+        jsonStr.append("\"compare\":").append(incData.get(3));
+        jsonStr.append("}").append("]");
+        return jsonStr.toString();
+    }
+
+    private String getPInfExiJson(String province) {
+        StringBuilder jsonStr = new StringBuilder();
+        jsonStr.append("[");
+        for (String date : statistics.keySet()) {
+            jsonStr.append("{");
+            jsonStr.append("\"xAxis\":").append("\"");
+            jsonStr.append(date.substring(date.indexOf("-") + 1).replace("-","/"));
+            jsonStr.append("\"").append(",");
+            jsonStr.append("\"现存确诊\":").append(statistics.get(date).getProvincesDataExi().get(province).get(0));
+            jsonStr.append("}").append(",");
+        }
+        jsonStr.deleteCharAt(jsonStr.length() - 1);
+        jsonStr.append("]");
+        return jsonStr.toString();
+    }
+
+    private String getPInfDeadCureIncJson(String province) {
+        StringBuilder jsonStr = new StringBuilder();
+        jsonStr.append("[");
+        for (String date : statistics.keySet()) {
+            List<Integer> incData = statistics.get(date).getProvincesDataInc().get(province);
+            jsonStr.append("{");
+            jsonStr.append("\"xAxis\":").append("\"");
+            jsonStr.append(date.substring(date.indexOf("-") + 1).replace("-","/"));
+            jsonStr.append("\"").append(",");
+            jsonStr.append("\"新增确诊\":").append(incData.get(0)).append(",");
+            jsonStr.append("\"新增死亡\":").append(incData.get(2)).append(",");
+            jsonStr.append("\"新增治愈\":").append(incData.get(3));
+            jsonStr.append("}").append(",");
+        }
+        jsonStr.deleteCharAt(jsonStr.length() - 1);
+        jsonStr.append("]");
+        return jsonStr.toString();
+    }
+
+    private String getPInfDeadCureCumJson(String province) {
+        StringBuilder jsonStr = new StringBuilder();
+        jsonStr.append("[");
+        for (String date : statistics.keySet()) {
+            List<Integer> incData = statistics.get(date).getProvincesDataExi().get(province);
+            int cumData = statistics.get(date).getProvincesCumInfect().get(province);
+            jsonStr.append("{");
+            jsonStr.append("\"xAxis\":").append("\"");
+            jsonStr.append(date.substring(date.indexOf("-") + 1).replace("-","/"));
+            jsonStr.append("\"").append(",");
+            jsonStr.append("\"累计确诊\":").append(cumData).append(",");
+            jsonStr.append("\"累计死亡\":").append(incData.get(2)).append(",");
+            jsonStr.append("\"累计治愈\":").append(incData.get(3));
+            jsonStr.append("}").append(",");
+        }
+        jsonStr.deleteCharAt(jsonStr.length() - 1);
+        jsonStr.append("]");
+        return jsonStr.toString();
+    }
+
+    public String getAllProvinceJson(String province,String date) {
+        StringBuilder jsonStr = new StringBuilder();
+        jsonStr.append("[");
+        jsonStr.append(getProvinceJson(province,date)).append(",");
+        jsonStr.append(getPInfExiJson(province)).append(",");
+        jsonStr.append(getPInfDeadCureIncJson(province)).append(",");
+        jsonStr.append(getPInfDeadCureCumJson(province));
         jsonStr.append("]");
         return jsonStr.toString();
     }

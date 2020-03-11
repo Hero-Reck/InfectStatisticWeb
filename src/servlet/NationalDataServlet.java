@@ -21,23 +21,12 @@ public class NationalDataServlet extends HttpServlet {
         LogDao dao = new LogDao(path);
         TotalData totalData = new TotalData();
         totalData.initData(dao);
-        writer.write(totalData.getNationalCumJson("2020-02-02"));
-//        writer.write("{\"type\":\"福建\"},{\"type\":\"湖北\"}");
+        writer.write(totalData.getAllNationalJson("2020-02-02"));
         writer.flush();
         writer.close();
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("utf-8");
-        response.setContentType("application/json;charset=utf-8");
-        response.setCharacterEncoding("utf-8");
-        PrintWriter writer = response.getWriter();
-        String path = getServletConfig().getServletContext().getRealPath("/") + "log";
-        LogDao dao = new LogDao(path);
-        TotalData totalData = new TotalData();
-        totalData.initData(dao);
-        writer.write(totalData.getNationalAllJson("2020-02-02"));
-        writer.flush();
-        writer.close();
+
     }
 }
