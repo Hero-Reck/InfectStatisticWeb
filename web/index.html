@@ -4,70 +4,121 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
     <title>疫情可视化</title>
-    <link href="css/style.css" type="text/css" rel="stylesheet" charset="UTF-8">
-    <link href="http://lib.sinaapp.com/js/bootstrap/v3.0.0/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <link href="css/style.css" type="text/css" rel="stylesheet">
+    <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.bootcss.com/jquery/3.2.0/jquery.js"></script>
     <script src="https://lib.baomitu.com/echarts/4.6.0/echarts.min.js"></script>
+    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
     <script src="js/china.js"></script>
 </head>
 <body>
 <div id="main">
     <div id="navigator">
-        <div id="navigatorContent">
-            <table>
-                <td><a href="#container">实时疫情</a></td>
-                <td><a href="#chinaStatistics">全国数据</a></td>
-                <td><a href="#rumors">辟谣与防护</a></td>
-            </table>
+        <button class="navBtn btn btn-danger">实时疫情</button>
+        <button class="navBtn btn">全国数据</button>
+        <button class="navBtn btn">辟谣与防护</button>
+    </div><br><br>
+    <div id="container">
+        <table class="table">
+            <tr style="width: 100%">
+                <td style="text-align: left;width: 33%"><span style="opacity: 0.3">截至至<span>2020-02-02</span>全国统计数据</span></td>
+                <td style="text-align: center;width: 34%"><div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        选择日期
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    </ul>
+                </div></td>
+                <td style="text-align: right;width: 33%"><span style="opacity: 0.3" class="glyphicon glyphicon-question-sign" aria-hidden="true">数据说明</span></td>
+            </tr>
+        </table>
+        <table class="table">
+            <tr>
+                <td>
+                    <h6>现存确诊</h6>
+                    <h2 id="infectExi" style="color: #f30d1d">1234</h2>
+                    <span>较昨日</span><span id="infectExiInc" style="color: #f30d1d">+12</span>
+                </td>
+                <td>
+                    <h6>累计确诊</h6>
+                    <h2 id="infectCum" style="color: #a31715">1234</h2>
+                    <span>较昨日</span><span id="infectCumInc" style="color: #a31715">+12</span>
+                </td>
+                <td>
+                    <h6>现存疑似</h6>
+                    <h2 id="susCum" style="color: #f3c81b">1234</h2>
+                    <span>较昨日</span><span id="susCumInc" style="color: #f3c81b">+12</span>
+                </td>
+                <td>
+                    <h6>累计死亡</h6>
+                    <h2 id="dead" style="color: #05042f">1234</h2>
+                    <span>较昨日</span><span id="deadInc" style="color: #05042f">+12</span>
+                </td>
+                <td>
+                    <h6>累计治愈</h6>
+                    <h2 id="cure" style="color: #00e9f3">1234</h2>
+                    <span>较昨日</span><span id="cureInc" style="color: #00e9f3">+12</span>
+                </td>
+            </tr>
+        </table>
+        <br>
+        <h2>疫情地图</h2>
+        <div style="text-align: center">
+            <button id="exiBtn" style="width: 49%" class="btn btn-danger">现有确诊</button>
+            <button id="cumBtn" style="width: 49%" class="btn btn-primary">累计确诊</button>
         </div>
-    </div>
-    <div id="container" name="container">
-        <div id="statistics">
-            <p id="fake">截止至xxxx年xx月xx日 xx:xx 全国统计数据</p>
-            <table>
-                <tr>
-                    <td id="td1">
-                        <p>现有确诊</p><p class="pp1" id="p1">45631</p>较昨日<p class="pp1"> -2129</p>
-                    </td>
-                    <td id="td2">
-                        <p>现存疑似</p><p class="pp2" id="p2">2491</p>较昨日<p class="pp2"> +439</p>
-                    </td>
-                    <td>
-                        <p>现有重症</p><p class="pp3" id="p3">1230</p>较昨日<p class="pp3"> -311</p>
-                    </td>
-                </tr>
-                <tr>
-                    <td id="td3">
-                        <p>累计确诊</p><p class="pp4" id="p4">78160</p>较昨日<p class="pp4"> +698</p>
-                    </td>
-                    <td id="td4">
-                        <p>累计治愈</p><p class="pp5" id="p5">30028</p>较昨日<p class="pp5"> +29</p>
-                    </td>
-                    <td>
-                        <p>累计死亡</p><p class="pp6" id="p6">3665</p>较昨日<p class="pp6"> +52</p>
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <div id="map">
-            疫情地图
-        </div>
-        <div id="graphics">
-            折线图
-        </div>
-        <div id="chinaStatistics" name="chinaStatistics">
-            全国数据
-        </div>
-        <div id="globalStatistics">
-            全球数据
-        </div>
-        <div id="rumors" name="rumors">
-            辟谣与防护
-        </div>
-    </div>
-    <div id="footer">
+        <div id="existMap"></div>
+        <div id="cumulativeMap"></div>
+        <div id="incSusInfChart"></div>
+        <div id="exiSusInfChart"></div>
+        <div id="deadCureChart"></div>
+        <button class="btn btn-danger chartBtn">新增确诊/新增疑似</button>
+        <button class="btn chartBtn">现存确诊/累计确诊</button>
+        <button class="btn chartBtn">死亡/治愈</button>
+        <br><br>
+        <h2>全国数据</h2>
+        <table class="table table-hover">
+            <tr>
+                <th style="text-align: center"><h3>地区</h3></th>
+                <th style="text-align: center"><h3>现存确诊</h3></th>
+                <th style="text-align: center"><h3>累计确诊</h3></th>
+                <th style="text-align: center"><h3>治愈</h3></th>
+                <th style="text-align: center"><h3>死亡</h3></th>
+            </tr>
+            <tbody>
 
+            </tbody>
+        </table><br><br>
+        <h2>辟谣与防护</h2><br>
+        <div>
+            <div class="message">
+                <div class="messageHead"></div>
+                <div class="messageBody"></div>
+            </div>
+        </div>
     </div>
+    <div id="footer"></div>
 </div>
+<script type="text/javascript">
+    $(".navBtn").click(function (e) {
+        $(".navBtn").removeClass("btn-danger");
+        $(e.target).addClass("btn-danger");
+    });
+    $("#cumBtn").click(function () {
+        $("#exiBtn").removeClass("btn-danger");
+        $("#exiBtn").addClass("btn-primary");
+        $("#cumBtn").addClass("btn-danger");
+    });
+    $("#exiBtn").click(function () {
+        $("#cumBtn").removeClass("btn-danger");
+        $("#cumBtn").addClass("btn-primary");
+        $("#exiBtn").addClass("btn-danger");
+    });
+    $(".chartBtn").click(function (e) {
+        $(".chartBtn").removeClass("btn-danger");
+        $(e.target).addClass("btn-danger");
+    });
+</script>
 </body>
 </html>
