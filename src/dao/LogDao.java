@@ -11,6 +11,7 @@ import java.util.List;
 
 public class LogDao {
     private File logDirectory;
+    public static String newestDate;
 
     public LogDao(String logPath) {
         logDirectory = new File(logPath);
@@ -23,6 +24,7 @@ public class LogDao {
             if(file.getName().matches(regex)){
                 logList.add(file);
             }
+            newestDate = file.getName();
         }
         return logList;
     }
