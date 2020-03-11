@@ -224,4 +224,38 @@ public class TotalData {
         jsonStr.append("]");
         return jsonStr.toString();
     }
+
+    public String getTableDataJson(String date) {
+        StringBuilder jsonStr = new StringBuilder();
+        jsonStr.append("[");
+        DatePartData data = statistics.get(date);
+        Map<String,List<Integer>> exiData = data.getProvincesDataExi();
+        Map<String,Integer> cumData = data.getProvincesCumInfect();
+        for (String province : exiData.keySet()) {
+            jsonStr.append("{");
+            jsonStr.append("\"地区\":").append("\"").append(province).append("\"").append(",");
+            jsonStr.append("\"现存确诊\":").append(exiData.get(province).get(0)).append(",");
+            jsonStr.append("\"累计确诊\":").append(cumData.get(province)).append(",");
+            jsonStr.append("\"治愈\":").append(exiData.get(province).get(3)).append(",");
+            jsonStr.append("\"死亡\":").append(exiData.get(province).get(2));
+            jsonStr.append("}").append(",");
+        }
+        jsonStr.deleteCharAt(jsonStr.length() - 1);
+        jsonStr.append("]");
+        return jsonStr.toString();
+    }
+
+    public String getNationalAllJson(String date) {
+        StringBuilder jsonStr = new StringBuilder();
+        jsonStr.append("[");
+        jsonStr.append(getTotalDataJson(date)).append(",");
+        jsonStr.append(getNationalExiJson(date)).append(",");
+        jsonStr.append(getNationalCumJson(date)).append(",");
+        jsonStr.append(getNInfSusIncJson()).append(",");
+        jsonStr.append(getNInfSusExiJson()).append(",");
+        jsonStr.append(getNDeadCureExiJson()).append(",");
+        jsonStr.append(getTableDataJson(date));
+        jsonStr.append("]");
+        return jsonStr.toString();
+    }
 }
