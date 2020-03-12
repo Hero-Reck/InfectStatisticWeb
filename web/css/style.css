@@ -20,13 +20,11 @@ td{
     width: 1024px;
     height: 800px;
     margin: 20px auto;
-    background-color: #00e9f3;
 }
 #cumulativeMap{
     width: 1024px;
     height: 800px;
     margin: 20px auto;
-    background-color: #0ff312;
     display: none;
 }
 #incSusInfChart{
@@ -72,4 +70,7 @@ td{
     height: 30px;
     width: 100%;
     margin-bottom: 5px;
+}
+#icon{
+    cursor: pointer;
 }

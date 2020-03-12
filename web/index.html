@@ -13,7 +13,7 @@
 </head>
 <body>
 <div class="main">
-    <div id="navigator">
+    <div id="navigator" class="navigator">
         <button id="navBtn1" class="navBtn btn btn-danger">实时疫情</button>
         <button id="navBtn2" class="navBtn btn">全国数据</button>
         <button id="navBtn3" class="navBtn btn">辟谣与防护</button>
@@ -21,7 +21,7 @@
     <div id="container">
         <table class="table">
             <tr style="width: 100%">
-                <td style="text-align: left;width: 33%"><span style="opacity: 0.3">截至至<span>2020-02-02</span>全国统计数据</span></td>
+                <td style="text-align: left;width: 33%"><span style="opacity: 0.3">截至至<span id="dateSpan"></span>全国统计数据</span></td>
                 <td style="text-align: center;width: 34%">
                     <div class="dropdown">
                         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -33,7 +33,7 @@
                             </ul>
                         </div>
                 </td>
-                <td style="text-align: right;width: 33%"><span style="opacity: 0.3" class="glyphicon glyphicon-question-sign" aria-hidden="true">数据说明</span></td>
+                <td style="text-align: right;width: 33%"><span id="icon" style="opacity: 0.3" class="glyphicon glyphicon-question-sign" aria-hidden="true">数据说明</span></td>
             </tr>
         </table>
         <table class="table">
@@ -66,7 +66,7 @@
             </tr>
         </table>
         <br>
-        <h2>疫情地图</h2>
+        <h2 id="charts">疫情地图</h2>
         <div style="text-align: center">
             <button id="exiBtn" style="width: 49%" class="btn btn-danger">现有确诊</button>
             <button id="cumBtn" style="width: 49%" class="btn btn-primary">累计确诊</button>
@@ -80,8 +80,8 @@
         <button id="chartBtn2" class="btn chartBtn">现存确诊/累计确诊</button>
         <button id="chartBtn3" class="btn chartBtn">死亡/治愈</button>
         <br><br>
-        <h2>全国数据</h2>
-        <table id="dataTable" class="table table-hover">
+        <h2 id="nationalData">全国数据</h2>
+        <table class="table table-hover">
             <tr>
                 <th style="text-align: center"><h3>地区</h3></th>
                 <th style="text-align: center"><h3>现存确诊</h3></th>
@@ -89,11 +89,11 @@
                 <th style="text-align: center"><h3>治愈</h3></th>
                 <th style="text-align: center"><h3>死亡</h3></th>
             </tr>
-            <tbody>
+            <tbody id="dataTable">
 
             </tbody>
         </table><br><br>
-        <h2>辟谣与防护</h2><br>
+        <h2 id="message">辟谣与防护</h2><br>
         <div>
             <div class="message">
                 <div class="messageHead"></div>
