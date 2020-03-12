@@ -103,7 +103,7 @@ function loadNationalData(date) {
             }
             $("#dropdown").empty();
             for(var i =0;i < data[0].length;i++) {
-                $("#dropdown").append("<li><button class='dateList btn'>"+data[0][i].date+"</li></button>");
+                $("#dropdown").append("<li><button class='dateList btn'>"+data[0][i].date+"</button></li>");
             }
             $(".dateList").click(function (e) {
                 loadNationalData($(this).html());
