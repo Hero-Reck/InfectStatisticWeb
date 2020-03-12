@@ -106,6 +106,19 @@ public class TotalData {
         return statistics;
     }
 
+    private String getDateListJson() {
+        StringBuilder jsonStr = new StringBuilder();
+        jsonStr.append("[");
+        for (String date : statistics.keySet()) {
+            jsonStr.append("{");
+            jsonStr.append("\"date\":").append("\"").append(date).append("\"");
+            jsonStr.append("}").append(",");
+        }
+        jsonStr.deleteCharAt(jsonStr.length() - 1);
+        jsonStr.append("]");
+        return jsonStr.toString();
+    }
+
     private String getTotalDataJson(String date) {
         DatePartData data = statistics.get(date);
         List<Integer> increment = data.getNationalDataInc();
@@ -180,8 +193,8 @@ public class TotalData {
             jsonStr.append("\"xAxis\":").append("\"");
             jsonStr.append(date.substring(date.indexOf("-") + 1).replace("-","/"));
             jsonStr.append("\"").append(",");
-            jsonStr.append("\"新增确诊\":").append(incData.get(0)).append(",");
-            jsonStr.append("\"新增疑似\":").append(incData.get(1));
+            jsonStr.append("\"incInf\":").append(incData.get(0)).append(",");
+            jsonStr.append("\"incSus\":").append(incData.get(1));
             jsonStr.append("}").append(",");
         }
         jsonStr.deleteCharAt(jsonStr.length() - 1);
@@ -198,8 +211,8 @@ public class TotalData {
             jsonStr.append("\"xAxis\":").append("\"");
             jsonStr.append(date.substring(date.indexOf("-") + 1).replace("-","/"));
             jsonStr.append("\"").append(",");
-            jsonStr.append("\"现存确诊\":").append(exiData.get(0)).append(",");
-            jsonStr.append("\"现存疑似\":").append(exiData.get(1));
+            jsonStr.append("\"exiInf\":").append(exiData.get(0)).append(",");
+            jsonStr.append("\"exiSus\":").append(exiData.get(1));
             jsonStr.append("}").append(",");
         }
         jsonStr.deleteCharAt(jsonStr.length() - 1);
@@ -216,8 +229,8 @@ public class TotalData {
             jsonStr.append("\"xAxis\":").append("\"");
             jsonStr.append(date.substring(date.indexOf("-") + 1).replace("-","/"));
             jsonStr.append("\"").append(",");
-            jsonStr.append("\"死亡\":").append(deadCureData.get(2)).append(",");
-            jsonStr.append("\"治愈\":").append(deadCureData.get(3));
+            jsonStr.append("\"dead\":").append(deadCureData.get(2)).append(",");
+            jsonStr.append("\"cure\":").append(deadCureData.get(3));
             jsonStr.append("}").append(",");
         }
         jsonStr.deleteCharAt(jsonStr.length() - 1);
@@ -233,11 +246,11 @@ public class TotalData {
         Map<String,Integer> cumData = data.getProvincesCumInfect();
         for (String province : exiData.keySet()) {
             jsonStr.append("{");
-            jsonStr.append("\"地区\":").append("\"").append(province).append("\"").append(",");
-            jsonStr.append("\"现存确诊\":").append(exiData.get(province).get(0)).append(",");
-            jsonStr.append("\"累计确诊\":").append(cumData.get(province)).append(",");
-            jsonStr.append("\"死亡\":").append(exiData.get(province).get(2)).append(",");
-            jsonStr.append("\"治愈\":").append(exiData.get(province).get(3));
+            jsonStr.append("\"area\":").append("\"").append(province).append("\"").append(",");
+            jsonStr.append("\"exiInf\":").append(exiData.get(province).get(0)).append(",");
+            jsonStr.append("\"cumInf\":").append(cumData.get(province)).append(",");
+            jsonStr.append("\"dead\":").append(exiData.get(province).get(2)).append(",");
+            jsonStr.append("\"cure\":").append(exiData.get(province).get(3));
             jsonStr.append("}").append(",");
         }
         jsonStr.deleteCharAt(jsonStr.length() - 1);
@@ -248,6 +261,7 @@ public class TotalData {
     public String getAllNationalJson(String date) {
         StringBuilder jsonStr = new StringBuilder();
         jsonStr.append("[");
+        jsonStr.append(getDateListJson()).append(",");
         jsonStr.append(getTotalDataJson(date)).append(",");
         jsonStr.append(getNationalExiJson(date)).append(",");
         jsonStr.append(getNationalCumJson(date)).append(",");
@@ -293,7 +307,7 @@ public class TotalData {
             jsonStr.append("\"xAxis\":").append("\"");
             jsonStr.append(date.substring(date.indexOf("-") + 1).replace("-","/"));
             jsonStr.append("\"").append(",");
-            jsonStr.append("\"现存确诊\":").append(statistics.get(date).getProvincesDataExi().get(province).get(0));
+            jsonStr.append("\"exiInf\":").append(statistics.get(date).getProvincesDataExi().get(province).get(0));
             jsonStr.append("}").append(",");
         }
         jsonStr.deleteCharAt(jsonStr.length() - 1);
@@ -310,9 +324,9 @@ public class TotalData {
             jsonStr.append("\"xAxis\":").append("\"");
             jsonStr.append(date.substring(date.indexOf("-") + 1).replace("-","/"));
             jsonStr.append("\"").append(",");
-            jsonStr.append("\"新增确诊\":").append(incData.get(0)).append(",");
-            jsonStr.append("\"新增死亡\":").append(incData.get(2)).append(",");
-            jsonStr.append("\"新增治愈\":").append(incData.get(3));
+            jsonStr.append("\"incInf\":").append(incData.get(0)).append(",");
+            jsonStr.append("\"incDead\":").append(incData.get(2)).append(",");
+            jsonStr.append("\"incCure\":").append(incData.get(3));
             jsonStr.append("}").append(",");
         }
         jsonStr.deleteCharAt(jsonStr.length() - 1);
@@ -330,9 +344,9 @@ public class TotalData {
             jsonStr.append("\"xAxis\":").append("\"");
             jsonStr.append(date.substring(date.indexOf("-") + 1).replace("-","/"));
             jsonStr.append("\"").append(",");
-            jsonStr.append("\"累计确诊\":").append(cumData).append(",");
-            jsonStr.append("\"累计死亡\":").append(incData.get(2)).append(",");
-            jsonStr.append("\"累计治愈\":").append(incData.get(3));
+            jsonStr.append("\"cumInf\":").append(cumData).append(",");
+            jsonStr.append("\"cumDead\":").append(incData.get(2)).append(",");
+            jsonStr.append("\"cumCure\":").append(incData.get(3));
             jsonStr.append("}").append(",");
         }
         jsonStr.deleteCharAt(jsonStr.length() - 1);
@@ -343,6 +357,7 @@ public class TotalData {
     public String getAllProvinceJson(String province,String date) {
         StringBuilder jsonStr = new StringBuilder();
         jsonStr.append("[");
+        jsonStr.append(getDateListJson()).append(",");
         jsonStr.append(getProvinceJson(province,date)).append(",");
         jsonStr.append(getPInfExiJson(province)).append(",");
         jsonStr.append(getPInfDeadCureIncJson(province)).append(",");
