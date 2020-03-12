@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>地区疫情</title>
+    <link href="css/style.css" type="text/css" rel="stylesheet">
+    <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/jquery/3.2.0/jquery.js"></script>
+    <script src="https://lib.baomitu.com/echarts/4.6.0/echarts.min.js"></script>
+    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="main">
+    <button class="btn btn-danger" style="float: right">返回全国疫情</button>
+    <h2>省份</h2>
+    <table class="table" style="margin-bottom: 0">
+        <tr style="width: 100%">
+            <td style="text-align: left;width: 33%"><span style="opacity: 0.3">截至至<span>2020-02-02</span>统计数据</span></td>
+            <td style="text-align: center;width: 34%"><div class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    选择日期
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                </ul>
+            </div></td>
+            <td style="text-align: right;width: 33%"><span style="opacity: 0.3" class="glyphicon glyphicon-question-sign" aria-hidden="true">数据说明</span></td>
+        </tr>
+    </table>
+    <table class="table">
+        <tr>
+            <td>
+                <h6>现存确诊</h6>
+                <h2 id="infectExi" style="color: #f30d1d">1234</h2>
+                <span>较昨日</span><span id="infectExiInc" style="color: #f30d1d">+12</span>
+            </td>
+            <td>
+                <h6>累计确诊</h6>
+                <h2 id="infectCum" style="color: #a31715">1234</h2>
+                <span>较昨日</span><span id="infectCumInc" style="color: #a31715">+12</span>
+            </td>
+            <td>
+                <h6>累计死亡</h6>
+                <h2 id="dead" style="color: #05042f">1234</h2>
+                <span>较昨日</span><span id="deadInc" style="color: #05042f">+12</span>
+            </td>
+            <td>
+                <h6>累计治愈</h6>
+                <h2 id="cure" style="color: #00e9f3">1234</h2>
+                <span>较昨日</span><span id="cureInc" style="color: #00e9f3">+12</span>
+            </td>
+        </tr>
+    </table>
+    <br>
+    <div style="text-align: center">
+        <button class="btn btn-danger chartBtn">现存确诊</button>
+        <button class="btn chartBtn">新增（确诊、死亡、治愈）</button>
+        <button class="btn chartBtn">累计（确诊、死亡、治愈）</button>
+    </div>
+    <div id="exiInfChart"></div>
+    <div id="incInfDeadCureChart"></div>
+    <div id="cumInfDeadCureChart"></div>
+</div>
+</body>
+</html>

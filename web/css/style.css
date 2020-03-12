@@ -1,9 +1,12 @@
 body{
     margin: 0;
 }
-#main{
+.main{
     width: 1024px;
     margin: 0 auto;
+}
+#navigator{
+    text-align: center;
 }
 .navBtn{
     width: 33%;
@@ -52,4 +55,21 @@ td{
     height: 600px;
     margin:20px auto;
     background-color: gray;
+}
+#exiInfChart{
+    width: 1024px;
+    height: 500px;
+    background-color: #f3c81b;
+}
+#incInfDeadCureChart{
+    width: 1024px;
+    height: 500px;
+    background-color: #f3c81b;
+    display: none;
+}
+#cumInfDeadCureChart{
+    width: 1024px;
+    height: 500px;
+    background-color: #f3c81b;
+    display: none;
 }
