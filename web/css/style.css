@@ -4,6 +4,7 @@ body{
 .main{
     width: 1024px;
     margin: 0 auto;
+    position: relative;
 }
 #navigator{
     text-align: center;
@@ -25,24 +26,21 @@ td{
     width: 1024px;
     height: 800px;
     margin: 20px auto;
-    background-color: #00e9f3;
+    background-color: #0ff312;
     display: none;
 }
 #incSusInfChart{
     width: 1024px;
     height: 500px;
-    background-color: #f3c81b;
 }
 #exiSusInfChart{
     width: 1024px;
     height: 500px;
-    background-color: #f3c81b;
     display: none;
 }
 #deadCureChart{
     width: 1024px;
     height: 500px;
-    background-color: #f3c81b;
     display: none;
 }
 .chartBtn{
@@ -59,17 +57,19 @@ td{
 #exiInfChart{
     width: 1024px;
     height: 500px;
-    background-color: #f3c81b;
 }
 #incInfDeadCureChart{
     width: 1024px;
     height: 500px;
-    background-color: #f3c81b;
     display: none;
 }
 #cumInfDeadCureChart{
     width: 1024px;
     height: 500px;
-    background-color: #f3c81b;
     display: none;
+}
+#dropdown button{
+    height: 30px;
+    width: 100%;
+    margin-bottom: 5px;
 }
