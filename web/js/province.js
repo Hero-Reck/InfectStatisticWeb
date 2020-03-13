@@ -32,7 +32,7 @@ chartBtn6.click(function () {
     $("#cumInfDeadCureChart").css({display:"block"});
 });
 $("#btnBack").click(function () {
-    window.history.back();
+    location.href="index.html";
 });
 $("#icon2").click(function () {
     alert("数据仅供测试使用，并非真实数据");
@@ -41,12 +41,11 @@ $("#icon2").click(function () {
 let exiInfChart = echarts.init(document.getElementById("exiInfChart"));
 let incInfDeadCureChart = echarts.init(document.getElementById("incInfDeadCureChart"));
 let cumInfDeadCureChart = echarts.init(document.getElementById("cumInfDeadCureChart"));
-exiInfChart.showLoading();
-incInfDeadCureChart.showLoading();
-cumInfDeadCureChart.showLoading();
-
 loadProvinceData();
 function loadProvinceData(date) {
+    exiInfChart.showLoading();
+    incInfDeadCureChart.showLoading();
+    cumInfDeadCureChart.showLoading();
     $.ajax({
         type:"POST",
         url:"ProvinceData",
@@ -71,7 +70,7 @@ function loadProvinceData(date) {
             });
             $("#infectExi2").text(data[1][0].num);
             let compare1 = data[1][0].compare;
-            $("#infectExiIn2").text(compare1 >= 0 ? "+" + compare1 : "-" + compare1);
+            $("#infectExiInc2").text(compare1 >= 0 ? "+" + compare1 : "-" + compare1);
             $("#infectCum2").text(data[1][1].num);
             let compare2 = data[1][1].compare;
             $("#infectCumInc2").text(compare2 >= 0 ? "+" + compare2 : "-" + compare2);

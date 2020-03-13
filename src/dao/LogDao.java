@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class LogDao {
         BufferedReader reader = null;
         List<String> records = new ArrayList<>();
         try {
-            reader = new BufferedReader(new InputStreamReader(new FileInputStream(log), "gbk"));
+            reader = new BufferedReader(new InputStreamReader(new FileInputStream(log), StandardCharsets.UTF_8));
             String dataRow;
             while ((dataRow = reader.readLine()) != null) {
                 if (dataRow.startsWith("//")) { //忽略注释行

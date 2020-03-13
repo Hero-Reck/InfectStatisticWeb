@@ -40,28 +40,23 @@
             <tr>
                 <td>
                     <h6>现存确诊</h6>
-                    <h2 id="infectExi" style="color: #f30d1d">1234</h2>
-                    <span>较昨日</span><span id="infectExiInc" style="color: #f30d1d">+12</span>
+                    <h2 id="infectExi" style="color: #f30d1d">0</h2>
+                    <span>较昨日</span><span id="infectExiInc" style="color: #f30d1d">+0</span>
                 </td>
                 <td>
                     <h6>累计确诊</h6>
-                    <h2 id="infectCum" style="color: #a31715">1234</h2>
-                    <span>较昨日</span><span id="infectCumInc" style="color: #a31715">+12</span>
-                </td>
-                <td>
-                    <h6>现存疑似</h6>
-                    <h2 id="susCum" style="color: #f3c81b">1234</h2>
-                    <span>较昨日</span><span id="susCumInc" style="color: #f3c81b">+12</span>
+                    <h2 id="infectCum" style="color: #a31715">0</h2>
+                    <span>较昨日</span><span id="infectCumInc" style="color: #a31715">+0</span>
                 </td>
                 <td>
                     <h6>累计死亡</h6>
-                    <h2 id="dead" style="color: #05042f">1234</h2>
-                    <span>较昨日</span><span id="deadInc" style="color: #05042f">+12</span>
+                    <h2 id="dead" style="color: #05042f">0</h2>
+                    <span>较昨日</span><span id="deadInc" style="color: #05042f">+0</span>
                 </td>
                 <td>
                     <h6>累计治愈</h6>
-                    <h2 id="cure" style="color: #00e9f3">1234</h2>
-                    <span>较昨日</span><span id="cureInc" style="color: #00e9f3">+12</span>
+                    <h2 id="cure" style="color: #00e9f3">0</h2>
+                    <span>较昨日</span><span id="cureInc" style="color: #00e9f3">+0</span>
                 </td>
             </tr>
         </table>
@@ -73,10 +68,10 @@
         </div>
         <div id="existMap"></div>
         <div id="cumulativeMap"></div>
-        <div id="incSusInfChart"></div>
-        <div id="exiSusInfChart"></div>
+        <div id="incInfChart"></div>
+        <div id="exiCumInfChart"></div>
         <div id="deadCureChart"></div>
-        <button id="chartBtn1" class="btn btn-danger chartBtn">新增确诊/新增疑似</button>
+        <button id="chartBtn1" class="btn btn-danger chartBtn">新增确诊</button>
         <button id="chartBtn2" class="btn chartBtn">现存确诊/累计确诊</button>
         <button id="chartBtn3" class="btn chartBtn">死亡/治愈</button>
         <br><br>
@@ -95,14 +90,50 @@
         </table><br><br>
         <h2 id="message">辟谣与防护</h2><br>
         <div>
-            <div class="message">
-                <div class="messageHead"></div>
-                <div class="messageBody"></div>
+            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner" role="listbox">
+                    <div class="item active">
+                        <div class="message">
+                            <div class="messageHead"></div>
+                            <div class="messageBody"></div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="message">
+                            <div class="messageHead"></div>
+                            <div class="messageBody"></div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="message">
+                            <div class="messageHead"></div>
+                            <div class="messageBody"></div>
+                        </div>
+                    </div>
+                </div>
+                <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
             </div>
         </div>
     </div>
-    <div id="footer"></div>
+    <div id="footer">
+        <h6>copyright 2020 张春翔 张庭博</h6>
+    </div>
 </div>
 <script src="js/nation.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $('.carousel').carousel()
+</script>
 </body>
 </html>

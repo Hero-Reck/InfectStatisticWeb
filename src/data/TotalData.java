@@ -202,17 +202,16 @@ public class TotalData {
         return jsonStr.toString();
     }
 
-    private String getNInfSusExiJson() {
+    private String getNInfCumExiJson() {
         StringBuilder jsonStr = new StringBuilder();
         jsonStr.append("[");
         for (String date : statistics.keySet()) {
-            List<Integer> exiData = statistics.get(date).getNationalDataExi();
             jsonStr.append("{");
             jsonStr.append("\"xAxis\":").append("\"");
             jsonStr.append(date.substring(date.indexOf("-") + 1).replace("-","/"));
             jsonStr.append("\"").append(",");
-            jsonStr.append("\"exiInf\":").append(exiData.get(0)).append(",");
-            jsonStr.append("\"exiSus\":").append(exiData.get(1));
+            jsonStr.append("\"exiInf\":").append(statistics.get(date).getNationalDataExi().get(0)).append(",");
+            jsonStr.append("\"cumInf\":").append(statistics.get(date).getNationalCumInfect());
             jsonStr.append("}").append(",");
         }
         jsonStr.deleteCharAt(jsonStr.length() - 1);
@@ -266,7 +265,7 @@ public class TotalData {
         jsonStr.append(getNationalExiJson(date)).append(",");
         jsonStr.append(getNationalCumJson(date)).append(",");
         jsonStr.append(getNInfSusIncJson()).append(",");
-        jsonStr.append(getNInfSusExiJson()).append(",");
+        jsonStr.append(getNInfCumExiJson()).append(",");
         jsonStr.append(getNDeadCureExiJson()).append(",");
         jsonStr.append(getTableDataJson(date));
         jsonStr.append("]");

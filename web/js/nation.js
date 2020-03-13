@@ -51,24 +51,24 @@ chartBtn1.click(function () {
     chartBtn2.removeClass("btn-danger");
     chartBtn3.removeClass("btn-danger");
     chartBtn1.addClass("btn-danger");
-    $("#incSusInfChart").css({display:"block"});
-    $("#exiSusInfChart").css({display:"none"});
+    $("#incInfChart").css({display:"block"});
+    $("#exiCumInfChart").css({display:"none"});
     $("#deadCureChart").css({display:"none"});
 });
 chartBtn2.click(function () {
     chartBtn1.removeClass("btn-danger");
     chartBtn3.removeClass("btn-danger");
     chartBtn2.addClass("btn-danger");
-    $("#incSusInfChart").css({display:"none"});
-    $("#exiSusInfChart").css({display:"block"});
+    $("#incInfChart").css({display:"none"});
+    $("#exiCumInfChart").css({display:"block"});
     $("#deadCureChart").css({display:"none"});
 });
 chartBtn3.click(function () {
     chartBtn1.removeClass("btn-danger");
     chartBtn2.removeClass("btn-danger");
     chartBtn3.addClass("btn-danger");
-    $("#incSusInfChart").css({display:"none"});
-    $("#exiSusInfChart").css({display:"none"});
+    $("#incInfChart").css({display:"none"});
+    $("#exiCumInfChart").css({display:"none"});
     $("#deadCureChart").css({display:"block"});
 });
 $("#icon").click(function () {
@@ -76,18 +76,17 @@ $("#icon").click(function () {
 });
 let existMap = echarts.init(document.getElementById("existMap"));
 let cumulativeMap = echarts.init(document.getElementById("cumulativeMap"));
-let incSusInfChart = echarts.init(document.getElementById("incSusInfChart"));
-let exiSusInfChart = echarts.init(document.getElementById("exiSusInfChart"));
+let incInfChart = echarts.init(document.getElementById("incInfChart"));
+let exiCumInfChart = echarts.init(document.getElementById("exiCumInfChart"));
 let deadCureChart = echarts.init(document.getElementById("deadCureChart"));
 
 loadNationalData();
 function loadNationalData(date) {
     existMap.showLoading();
     cumulativeMap.showLoading();
-    incSusInfChart.showLoading();
-    exiSusInfChart.showLoading();
+    incInfChart.showLoading();
+    exiCumInfChart.showLoading();
     deadCureChart.showLoading();
-    console.log("start");
     $.ajax({
         type:"POST",
         url:"NationalData",
@@ -114,9 +113,6 @@ function loadNationalData(date) {
             $("#infectCum").text(data[1][1].num);
             let compare2 = data[1][1].compare;
             $("#infectCumInc").text(compare2 >= 0 ? "+" + compare2 : "-" + compare2);
-            $("#susCum").text(data[1][2].num);
-            let compare3 = data[1][2].compare;
-            $("#susCumInc").text(compare3 >= 0 ? "+" + compare3 : "-" + compare3);
             $("#dead").text(data[1][3].num);
             let compare4 = data[1][3].compare;
             $("#deadInc").text(compare4 >= 0 ? "+" + compare4 : "-" + compare4);
@@ -227,67 +223,22 @@ function loadNationalData(date) {
             cumulativeMap.hideLoading();
             let xAxis = [];
             let incInfData = [];
-            let incSusData = [];
-            let exiSusData = [];
             let exiInfData = [];
+            let cumInfData = [];
             let deadData = [];
             let cureData = [];
             for(let i = 0;i<data[4].length;i++) {
                 xAxis.push(data[4][i].xAxis);
                 incInfData.push(data[4][i].incInf);
-                incSusData.push(data[4][i].incSus);
                 exiInfData.push(data[5][i].exiInf);
-                exiSusData.push(data[5][i].exiSus);
+                cumInfData.push(data[5][i].cumInf);
                 deadData.push(data[6][i].dead);
                 cureData.push(data[6][i].cure);
             }
-            incSusInfChart.setOption({
-                color:['#dcf317', '#d14a61'],
+            incInfChart.setOption({
+                color:['#d14a61'],
                 legend: {
-                    data: ['新增疑似', '新增确诊', ]
-                },
-                xAxis: {
-                    type: 'category',
-                    data: xAxis,
-                    name: '日期',
-                    nameTextStyle: {
-                        fontWeight: 600,
-                        fontSize: 18
-                    }
-                },
-                yAxis: {
-                    type: 'value',
-                    name: '人数',   // y轴名称
-                    // y轴名称样式
-                    nameTextStyle: {
-                        fontWeight: 600,
-                        fontSize: 18
-                    }
-                },
-                label: {
-                },
-                tooltip: {
-                    trigger: 'axis'   // axis   item   none三个值
-                },
-                series: [
-                    {
-                        name: '新增疑似',
-                        data: incSusData,
-                        type: 'line',
-                        smooth:true
-                    }, {
-                        name: '新增确诊',
-                        data: incInfData,
-                        type: 'line',
-                        smooth:true
-                    },
-                ]
-            });
-            incSusInfChart.hideLoading();
-            exiSusInfChart.setOption({
-                color:['#dcf317', '#d14a61'],
-                legend: {
-                    data: ['现存疑似', '现存确诊', ]
+                    data: ['新增确诊', ]
                 },
                 xAxis: {
                     type: 'category',
@@ -313,19 +264,55 @@ function loadNationalData(date) {
                 },
                 series: [
                     {
-                        name: '现存疑似',
-                        data:exiSusData,
-                        type: 'line',
-                        smooth:true
-                    }, {
-                        name: '现存确诊',
-                        data: exiInfData,
+                        name: '新增确诊',
+                        data: incInfData,
                         type: 'line',
                         smooth:true
                     },
                 ]
             });
-            exiSusInfChart.hideLoading();
+            incInfChart.hideLoading();
+            exiCumInfChart.setOption({
+                color:['#d14a61','#730002'],
+                legend: {
+                    data: ['现存确诊','累计确诊']
+                },
+                xAxis: {
+                    type: 'category',
+                    data: xAxis,
+                    name: '日期',
+                    nameTextStyle: {
+                        fontWeight: 600,
+                        fontSize: 18
+                    }
+                },
+                yAxis: {
+                    type: 'value',
+                    name: '人数',
+                    nameTextStyle: {
+                        fontWeight: 600,
+                        fontSize: 18
+                    }
+                },
+                label: {
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                series: [{
+                        name: '现存确诊',
+                        data: exiInfData,
+                        type: 'line',
+                        smooth:true
+                    },{
+                        name: '累计确诊',
+                        data: cumInfData,
+                        type: 'line',
+                        smooth:true
+                    }
+                ]
+            });
+            exiCumInfChart.hideLoading();
             deadCureChart.setOption({
                 color:['#05042f','#27f34c'],
                 legend: {
