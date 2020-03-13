@@ -109,16 +109,16 @@ function loadNationalData(date) {
             });
             $("#infectExi").text(data[1][0].num);
             let compare1 = data[1][0].compare;
-            $("#infectExiInc").text(compare1 >= 0 ? "+" + compare1 : "-" + compare1);
+            $("#infectExiInc").text(compare1 >= 0 ? "+" + compare1 : compare1);
             $("#infectCum").text(data[1][1].num);
             let compare2 = data[1][1].compare;
-            $("#infectCumInc").text(compare2 >= 0 ? "+" + compare2 : "-" + compare2);
+            $("#infectCumInc").text("+" + compare2);
             $("#dead").text(data[1][3].num);
             let compare4 = data[1][3].compare;
-            $("#deadInc").text(compare4 >= 0 ? "+" + compare4 : "-" + compare4);
+            $("#deadInc").text("+" + compare4);
             $("#cure").text(data[1][4].num);
             let compare5 = data[1][4].compare;
-            $("#cureInc").text(compare5 >= 0 ? "+" + compare5 : "-" + compare5);
+            $("#cureInc").text("+" + compare5);
             existMap.setOption({
                 backgroundColor: '#ffffff',
                 title: {
@@ -138,7 +138,7 @@ function loadNationalData(date) {
                         {start: 500, end: 999},{start: 100, end: 499},
                         {start: 10, end: 99},{start: 1, end: 9},{start: 0, end: 0}
                     ],
-                    color: ['#581312', '#ad0005', '#ea0a0b','#e26b21', '#E2B089', '#EEFFB4', '#ffffff']
+                    color: ['#4f060d', '#7b2c31', '#cb2a2f','#e45a4f', '#e9a188', '#FBEBD2', '#ffffff']
                 },
                 series: [{
                     name: '现存确诊',
@@ -189,10 +189,10 @@ function loadNationalData(date) {
                         {start: 500, end: 999},{start: 100, end: 499},
                         {start: 10, end: 99},{start: 1, end: 9},{start: 0, end: 0}
                     ],
-                    color: ['#581312', '#ad0005', '#ea0a0b','#e26b21', '#E2B089', '#EEFFB4', '#ffffff']
+                    color: ['#4f060d', '#7b2c31', '#cb2a2f','#e45a4f', '#e9a188', '#FBEBD2', '#ffffff']
                 },
                 series: [{
-                    name: '现存确诊',
+                    name: '累计确诊',
                     type: 'map',
                     mapType: 'china',
                     roam: false,
