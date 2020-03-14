@@ -211,7 +211,8 @@ public class TotalData {
             jsonStr.append(date.substring(date.indexOf("-") + 1).replace("-","/"));
             jsonStr.append("\"").append(",");
             jsonStr.append("\"exiInf\":").append(statistics.get(date).getNationalDataExi().get(0)).append(",");
-            jsonStr.append("\"cumInf\":").append(statistics.get(date).getNationalCumInfect());
+            int cumInf = statistics.get(date).getNationalCumInfect();
+            jsonStr.append("\"cumInf\":").append(cumInf);
             jsonStr.append("}").append(",");
         }
         jsonStr.deleteCharAt(jsonStr.length() - 1);
