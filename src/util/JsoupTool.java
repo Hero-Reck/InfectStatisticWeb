@@ -141,9 +141,5 @@ public class JsoupTool {
             }
         }
     }
-
-    public static void main(String[] arsg){
-        JsoupTool tool = new JsoupTool("E:/log/");
-    }
 }
 
