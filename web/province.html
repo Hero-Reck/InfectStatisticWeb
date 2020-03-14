@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>地区疫情</title>
+    <link href="css/style.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://cdn.bootcss.com/jquery/3.2.0/jquery.js"></script>
+    <script src="https://lib.baomitu.com/echarts/4.6.0/echarts.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="main">
+    <button id="btnBack" class="btn btn-danger" style="float: right">返回全国疫情</button>
+    <h2 id="province">省份</h2>
+    <table class="table" style="margin-bottom: 0">
+        <tr style="width: 100%">
+            <td style="text-align: left;width: 33%"><span style="opacity: 0.3">截至至<span id="dateSpan2">2020-02-02</span>统计数据</span></td>
+            <td style="text-align: center;width: 34%"><div class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    选择日期
+                    <span class="caret"></span>
+                </button>
+                <ul id="dropdown2" class="dropdown-menu" aria-labelledby="dropdownMenu1" style="height:300px;overflow-y: scroll">
+
+                </ul>
+            </div></td>
+            <td style="text-align: right;width: 33%"><span id="icon2" style="opacity: 0.3" class="glyphicon glyphicon-question-sign" aria-hidden="true">数据说明</span></td>
+        </tr>
+    </table>
+    <table class="table">
+        <tr>
+            <td>
+                <h6>现存确诊</h6>
+                <h2 id="infectExi2" style="color: #f30d1d">0</h2>
+                <span>较昨日</span><span id="infectExiInc2" style="color: #f30d1d">+0</span>
+            </td>
+            <td>
+                <h6>累计确诊</h6>
+                <h2 id="infectCum2" style="color: #a31715">0</h2>
+                <span>较昨日</span><span id="infectCumInc2" style="color: #a31715">+0</span>
+            </td>
+            <td>
+                <h6>累计死亡</h6>
+                <h2 id="dead2" style="color: #05042f">0</h2>
+                <span>较昨日</span><span id="deadInc2" style="color: #05042f">+0</span>
+            </td>
+            <td>
+                <h6>累计治愈</h6>
+                <h2 id="cure2" style="color: #00e9f3">0</h2>
+                <span>较昨日</span><span id="cureInc2" style="color: #00e9f3">+0</span>
+            </td>
+        </tr>
+    </table>
+    <br>
+    <div style="text-align: center">
+        <button id="chartBtn4" class="btn btn-danger chartBtn">现存确诊</button>
+        <button id="chartBtn5" class="btn chartBtn">新增（确诊、死亡、治愈）</button>
+        <button id="chartBtn6" class="btn chartBtn">累计（确诊、死亡、治愈）</button>
+    </div>
+    <div id="exiInfChart"></div>
+    <div id="incInfDeadCureChart"></div>
+    <div id="cumInfDeadCureChart"></div>
+</div>
+<script src="js/province.js"></script>
+</body>
+</html>
